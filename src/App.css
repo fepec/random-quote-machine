@@ -1,3 +1,30 @@
 * {
   box-sizing: border-box;
 }
+
+html {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#quote-box {
+  width: 40vw;
+  height: 50vh;
+  margin: auto;
+}
+
+.button-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#tweet-quote {
+  font-size: 2em;
+  padding: 0;
+  margin: 0;
+}
+
+#new-quote {
+  height: 2em;
+}
