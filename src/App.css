@@ -1,4 +1,15 @@
-:root {
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+button {
+  font-size: 0.9rem;
+}
+/* :root {
   --primary-color: rgb(155,89,182);
   --component-bg-color: white;
 }
@@ -11,13 +22,6 @@ html {
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--primary-color);
   color: var(--primary-color)
-}
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
 }
 
 #quote-box {  
@@ -54,4 +58,4 @@ body {
   background-color: var(--primary-color);
   border: 0px none;
   border-radius: 5px;
-}
+} */
