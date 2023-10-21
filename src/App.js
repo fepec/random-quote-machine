@@ -2,10 +2,11 @@ import "./App.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareXTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faQuoteLeft, faQuoteRight } from "@fortawesome/free-solid-svg-icons"
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <QuoteBox quote={QUOTE} />
     </div>
   );
@@ -22,7 +23,13 @@ function QuoteBox({ quote }) {
 }
 
 function QuoteText({ text }) {
-  return <p id="text">{text}</p>;
+  return (
+    <div>
+      <FontAwesomeIcon icon={faQuoteLeft} />
+      <span id="text"> {text} </span>
+      <FontAwesomeIcon icon={faQuoteRight} />
+    </div>
+  );
 }
 
 function QuoteAuthor({ author }) {

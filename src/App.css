@@ -1,15 +1,35 @@
+:root {
+  --primary-color: rgb(155,89,182);
+  --component-bg-color: white;
+}
+
 * {
-  box-sizing: border-box;
+  box-sizing: border-box;  
 }
 
 html {
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--primary-color);
+  color: var(--primary-color)
 }
 
-#quote-box {
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#quote-box {  
+  background-color: var(--component-bg-color);
   width: 40vw;
-  height: 50vh;
+  padding: 20px 20px;
   margin: auto;
+  border-radius: 10px;
+}
+
+#author {
+  text-align: right;
 }
 
 .button-bar {
@@ -27,4 +47,11 @@ html {
 
 #new-quote {
   height: 2em;
+}
+
+#new-quote {
+  color: var(--component-bg-color);
+  background-color: var(--primary-color);
+  border: 0px none;
+  border-radius: 5px;
 }
