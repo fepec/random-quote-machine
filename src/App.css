@@ -1,12 +1,22 @@
 #app {
-  margin: 0 0 0 0;
+  /* margin: 0 0 0 0;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   height: 100vh;
+  /* width: 100vw; */
 }
 
-button {
+/* button {
+  font-size: 0.9rem;
+} */
+
+#quote-box {
+  /* width: 45vw; */
+  min-height: 35vh;
+}
+
+#fepec {
   font-size: 0.9rem;
 }
 /* :root {

@@ -25,6 +25,7 @@ function App() {
       )
   };
   
+  // Study this: https://stackoverflow.com/questions/72253011/is-it-possible-to-initialize-the-state-of-a-component-with-api-data-before-the-i
   useEffect(() => {
     getQuote();
   }, [])
@@ -34,8 +35,9 @@ function App() {
   }
 
   return (
-    <div id="app" className="container-fluid bg-primary text-bg-primary d-flex align-items-center justify-content-center">
+    <div id="app" className="container-fluid bg-primary text-bg-primary d-flex flex-column align-items-center justify-content-center">
           <QuoteBox quote={quote} onNewQuote={handleNewQuote} />
+          <div className="mt-2"><a id="fepec" href="https://github.com/fepec" className="text-white link-underline link-underline-opacity-0">by fepec</a></div>
     </div>
   );
 }
@@ -46,22 +48,23 @@ function QuoteBox({ quote, onNewQuote }) {
   return (
     <div
       id="quote-box"
-      className="d-flex flex-column vertical-end bg-white text-primary px-3 py-2 rounded"
+      className="container-sm d-flex flex-column justify-content-between bg-white text-primary p-5 rounded"
     >
       <QuoteText text={quote.content} />
       <QuoteAuthor author={quote.author} />
-      <ButtonBar onNewQuoteClick={onNewQuote} />
+      <ButtonBar onNewQuoteClick={onNewQuote} quote={quote}/>
     </div>
   );
 }
 
 function QuoteText({ text }) {
   return (
-    <div className="row no-gutters">
-      
-        <FontAwesomeIcon icon={faQuoteLeft} className="col"/> <span id="text" className="col-auto"> {text} </span>{" "}
-        <FontAwesomeIcon icon={faQuoteRight} className="col" />
-      
+    <div className="no-gutters d-flex text-center pt-3 justify-content-center">
+      <span>
+        <FontAwesomeIcon icon={faQuoteLeft} size="xl" className="me-1 xl"/>
+        <span id="text" className="fs-5"> {text} </span>
+        <FontAwesomeIcon icon={faQuoteRight} size="xl" className="ms-1" />
+        </span>
     </div>
   );
 }
@@ -74,24 +77,26 @@ function QuoteAuthor({ author }) {
   );
 }
 
-function ButtonBar({onNewQuoteClick}) {
+function ButtonBar({onNewQuoteClick, quote}) {
   return (
     <div
       id="button-bar"
-      className="row row-cols-3 align-items-center justify-content-evenly"
+      className="d-flex align-items-stretch justify-content-evenly pt-3"
     >
-      <TweetQuote />
-      <div className="col"></div>
+      <TweetQuote quote={quote}/>
+      
       <NewQuote onButtonClick={onNewQuoteClick}/>
     </div>
   );
 }
 
-function TweetQuote() {
+function TweetQuote({quote}) {
+  const tweetText = `"${quote.content}" -${quote.author}`
+  const tweetURL =  `https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=${encodeURIComponent(tweetText)}`
   return (
-    <div className="col">
-      <a id="tweet-quote">
-        <FontAwesomeIcon icon={faSquareXTwitter} size="xl" />
+    <div className="">
+      <a id="tweet-quote" href={tweetURL} target="_blank">
+        <FontAwesomeIcon icon={faSquareXTwitter} size="2x" />
       </a>
     </div>
   );
@@ -99,8 +104,8 @@ function TweetQuote() {
 
 function NewQuote({onButtonClick}) {
   return (
-    <div className="col d-flex justify-content-end">
-      <button id="new-quote" className="bg-primary text-light border-0 rounded" onClick={onButtonClick}>
+    <div className=" d-flex justify-content-end ms-auto ">
+      <button id="new-quote" className="bg-primary text-light border-0 rounded-1 " onClick={onButtonClick}>
         New Quote
       </button>
     </div>
@@ -108,15 +113,3 @@ function NewQuote({onButtonClick}) {
 }
 
 export default App;
-
-const QUOTE = {
-  _id: "RmeADLR8F3X2",
-  content:
-    "How wonderful it is that nobody need wait a single moment before starting to improve the world.",
-  author: "Anne Frank",
-  tags: ["Famous Quotes"],
-  authorSlug: "anne-frank",
-  length: 95,
-  dateAdded: "2020-03-27",
-  dateModified: "2023-04-14",
-};
