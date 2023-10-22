@@ -14,26 +14,28 @@ function App() {
     author: "",
   });
 
-  async function handleNewQuote()  {
-    fetch(QUOTES_API)
-      .then((res) => res.json())
-      .then((json) =>
-        setQuote({
-          content: json[0].content,
-          author: json[0].author,
-        })
-      );
+  async function getQuote()  {
+    let quote = await fetch(QUOTES_API)
+      .then((res) => res.json())  
+    
+    return setQuote({
+      content: quote[0].content,
+      author: quote[0].author
+    }
+      )
   };
   
+  useEffect(() => {
+    getQuote();
+  }, [])
+
+  function handleNewQuote() {
+    getQuote()
+  }
+
   return (
-    <div id="app" className="bg-primary text-bg-primary">
-      <div className="row">
-        <div className="col"></div>
-        <div className="col-md-6 col-sm-10">
+    <div id="app" className="container-fluid bg-primary text-bg-primary d-flex align-items-center justify-content-center">
           <QuoteBox quote={quote} onNewQuote={handleNewQuote} />
-        </div>
-        <div className="col"></div>
-      </div>
     </div>
   );
 }
@@ -44,7 +46,7 @@ function QuoteBox({ quote, onNewQuote }) {
   return (
     <div
       id="quote-box"
-      className="container vertical-center bg-white text-primary px-3 py-2 rounded"
+      className="d-flex flex-column vertical-end bg-white text-primary px-3 py-2 rounded"
     >
       <QuoteText text={quote.content} />
       <QuoteAuthor author={quote.author} />
@@ -55,11 +57,11 @@ function QuoteBox({ quote, onNewQuote }) {
 
 function QuoteText({ text }) {
   return (
-    <div className="row ">
-      <span>
-        <FontAwesomeIcon icon={faQuoteLeft} /> <span id="text"> {text} </span>{" "}
-        <FontAwesomeIcon icon={faQuoteRight} />
-      </span>
+    <div className="row no-gutters">
+      
+        <FontAwesomeIcon icon={faQuoteLeft} className="col"/> <span id="text" className="col-auto"> {text} </span>{" "}
+        <FontAwesomeIcon icon={faQuoteRight} className="col" />
+      
     </div>
   );
 }
