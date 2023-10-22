@@ -4,13 +4,33 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faQuoteLeft, faQuoteRight } from "@fortawesome/free-solid-svg-icons";
 
+import { useEffect, useState } from "react";
+
+const QUOTES_API = "https://api.quotable.io/quotes/random";
+
 function App() {
+  const [quote, setQuote] = useState({
+    content: "",
+    author: "",
+  });
+
+  async function handleNewQuote()  {
+    fetch(QUOTES_API)
+      .then((res) => res.json())
+      .then((json) =>
+        setQuote({
+          content: json[0].content,
+          author: json[0].author,
+        })
+      );
+  };
+  
   return (
-    <div className="container">
+    <div id="app" className="bg-primary text-bg-primary">
       <div className="row">
         <div className="col"></div>
         <div className="col-md-6 col-sm-10">
-          <QuoteBox quote={QUOTE} />
+          <QuoteBox quote={quote} onNewQuote={handleNewQuote} />
         </div>
         <div className="col"></div>
       </div>
@@ -18,12 +38,17 @@ function App() {
   );
 }
 
-function QuoteBox({ quote }) {
+
+
+function QuoteBox({ quote, onNewQuote }) {
   return (
-    <div id="quote-box" className="container vertical-center bg-white text-primary px-3 py-2 rounded">
+    <div
+      id="quote-box"
+      className="container vertical-center bg-white text-primary px-3 py-2 rounded"
+    >
       <QuoteText text={quote.content} />
       <QuoteAuthor author={quote.author} />
-      <ButtonBar />
+      <ButtonBar onNewQuoteClick={onNewQuote} />
     </div>
   );
 }
@@ -47,14 +72,15 @@ function QuoteAuthor({ author }) {
   );
 }
 
-function ButtonBar() {
+function ButtonBar({onNewQuoteClick}) {
   return (
-    <div id="button-bar" className="row row-cols-3 align-items-center justify-content-evenly">
-      
-        <TweetQuote /> 
-        <div className="col"></div>
-        <NewQuote />
-      
+    <div
+      id="button-bar"
+      className="row row-cols-3 align-items-center justify-content-evenly"
+    >
+      <TweetQuote />
+      <div className="col"></div>
+      <NewQuote onButtonClick={onNewQuoteClick}/>
     </div>
   );
 }
@@ -69,10 +95,12 @@ function TweetQuote() {
   );
 }
 
-function NewQuote() {
+function NewQuote({onButtonClick}) {
   return (
     <div className="col d-flex justify-content-end">
-      <button id="new-quote" className="bg-primary text-light border-0 rounded">New Quote</button>
+      <button id="new-quote" className="bg-primary text-light border-0 rounded" onClick={onButtonClick}>
+        New Quote
+      </button>
     </div>
   );
 }
